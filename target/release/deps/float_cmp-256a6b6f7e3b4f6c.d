@@ -1,0 +1,11 @@
+/Users/kuzan04/Documents/Rustlang/checktext/target/release/deps/libfloat_cmp-256a6b6f7e3b4f6c.rmeta: /Users/kuzan04/.cargo/registry/src/index.crates.io-6f17d22bba15001f/float-cmp-0.9.0/src/lib.rs /Users/kuzan04/.cargo/registry/src/index.crates.io-6f17d22bba15001f/float-cmp-0.9.0/src/macros.rs /Users/kuzan04/.cargo/registry/src/index.crates.io-6f17d22bba15001f/float-cmp-0.9.0/src/ulps.rs /Users/kuzan04/.cargo/registry/src/index.crates.io-6f17d22bba15001f/float-cmp-0.9.0/src/ulps_eq.rs /Users/kuzan04/.cargo/registry/src/index.crates.io-6f17d22bba15001f/float-cmp-0.9.0/src/eq.rs
+
+/Users/kuzan04/Documents/Rustlang/checktext/target/release/deps/libfloat_cmp-256a6b6f7e3b4f6c.rlib: /Users/kuzan04/.cargo/registry/src/index.crates.io-6f17d22bba15001f/float-cmp-0.9.0/src/lib.rs /Users/kuzan04/.cargo/registry/src/index.crates.io-6f17d22bba15001f/float-cmp-0.9.0/src/macros.rs /Users/kuzan04/.cargo/registry/src/index.crates.io-6f17d22bba15001f/float-cmp-0.9.0/src/ulps.rs /Users/kuzan04/.cargo/registry/src/index.crates.io-6f17d22bba15001f/float-cmp-0.9.0/src/ulps_eq.rs /Users/kuzan04/.cargo/registry/src/index.crates.io-6f17d22bba15001f/float-cmp-0.9.0/src/eq.rs
+
+/Users/kuzan04/Documents/Rustlang/checktext/target/release/deps/float_cmp-256a6b6f7e3b4f6c.d: /Users/kuzan04/.cargo/registry/src/index.crates.io-6f17d22bba15001f/float-cmp-0.9.0/src/lib.rs /Users/kuzan04/.cargo/registry/src/index.crates.io-6f17d22bba15001f/float-cmp-0.9.0/src/macros.rs /Users/kuzan04/.cargo/registry/src/index.crates.io-6f17d22bba15001f/float-cmp-0.9.0/src/ulps.rs /Users/kuzan04/.cargo/registry/src/index.crates.io-6f17d22bba15001f/float-cmp-0.9.0/src/ulps_eq.rs /Users/kuzan04/.cargo/registry/src/index.crates.io-6f17d22bba15001f/float-cmp-0.9.0/src/eq.rs
+
+/Users/kuzan04/.cargo/registry/src/index.crates.io-6f17d22bba15001f/float-cmp-0.9.0/src/lib.rs:
+/Users/kuzan04/.cargo/registry/src/index.crates.io-6f17d22bba15001f/float-cmp-0.9.0/src/macros.rs:
+/Users/kuzan04/.cargo/registry/src/index.crates.io-6f17d22bba15001f/float-cmp-0.9.0/src/ulps.rs:
+/Users/kuzan04/.cargo/registry/src/index.crates.io-6f17d22bba15001f/float-cmp-0.9.0/src/ulps_eq.rs:
+/Users/kuzan04/.cargo/registry/src/index.crates.io-6f17d22bba15001f/float-cmp-0.9.0/src/eq.rs:

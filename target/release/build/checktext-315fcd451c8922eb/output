@@ -1,0 +1,7 @@
+cargo:rerun-if-changed=/Users/kuzan04/Documents/Rustlang/checktext/ui/appwindow.slint
+cargo:rerun-if-env-changed=SLINT_STYLE
+cargo:rerun-if-env-changed=SLINT_FONT_SIZES
+cargo:rerun-if-env-changed=SLINT_SCALE_FACTOR
+cargo:rerun-if-env-changed=SLINT_ASSET_SECTION
+cargo:rerun-if-env-changed=SLINT_EMBED_RESOURCES
+cargo:rustc-env=SLINT_INCLUDE_GENERATED=/Users/kuzan04/Documents/Rustlang/checktext/target/release/build/checktext-315fcd451c8922eb/out/appwindow.rs

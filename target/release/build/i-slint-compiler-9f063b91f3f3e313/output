@@ -1,0 +1,2 @@
+cargo:rerun-if-changed=/Users/kuzan04/.cargo/registry/src/index.crates.io-6f17d22bba15001f/i-slint-compiler-1.4.1/widgets
+cargo:rustc-env=SLINT_WIDGETS_LIBRARY=/Users/kuzan04/Documents/Rustlang/checktext/target/release/build/i-slint-compiler-9f063b91f3f3e313/out/included_library.rs
