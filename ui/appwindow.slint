@@ -1,0 +1,175 @@
+import { Button, VerticalBox, HorizontalBox, TextEdit, ListView } from "std-widgets.slint";
+
+component Button inherits Rectangle {
+  in-out property text <=> txt.text;
+  callback clicked <=> touch.clicked;
+  border-radius: root.height / 2;
+  border-width: 1px;
+  border-color: root.background.darker(25%);
+  background: touch.pressed ? #6b8282 : touch.has-hover ? #6c616c :  #456;
+  height: txt.preferred-height * 1.33;
+  min-width: txt.preferred-width + 20px;
+  txt := Text {
+    font-size: 18px;
+    horizontal-alignment: center;
+    x: (parent.width - self.width)/2 + (touch.pressed ? 2px : 0);
+    y: (parent.height - self.height)/2 + (touch.pressed ? 1px : 0);
+    color: touch.pressed ? #fff : #eee;
+    }
+  touch := TouchArea { }
+  }
+
+export component AppWindow inherits Window {
+
+  in-out property <string> res: "Please summit...";
+  in-out property <[string]> res_backup: [];
+  in-out property <[string]> lines: [];
+  in property <int> t_lines: 0;
+  callback summit(string, string);
+  callback select(string);
+  callback refresh();
+
+  title: "Check Config";
+  GridLayout {
+    padding: 10px;
+    spacing: 5px;
+    Row {
+      VerticalBox {
+        Text {
+          text: "📖 Check Config Text";
+          horizontal-alignment: center;
+          font-size: 24px;
+          font-weight: 900;
+          color: white;
+          }
+        }
+      }
+    Row {
+      HorizontalBox {
+        VerticalBox {
+          Text {
+            text: "Before";
+            horizontal-alignment: center;
+            font-size: 24px;
+            font-weight: 900;
+            color: white;
+            }
+          b_config := TextEdit {
+            font-size: 14px;
+            width: 600px;
+            height: 250px;
+            }
+          }
+        Rectangle {
+          Button {
+            width: 100px;
+            text: "Clear";
+            clicked => { 
+              b_config.text = "";
+              a_config.text = "";
+              res_check.text = "Please summit...";
+              root.lines = [];
+              root.res_backup = [];
+              total_lines.text = 0;
+              } 
+            }
+          }
+        VerticalBox {
+          Text {
+            text: "After";
+            horizontal-alignment: center;
+            font-size: 24px;
+            font-weight: 900;
+            color: white;
+            }
+          a_config := TextEdit {
+            font-size: 14px;
+            width: 600px;
+            height: 250px;
+            }  
+          }
+        }
+      }
+    GridLayout {
+      spacing: 5px;
+      Row {
+        Rectangle {
+          Button {
+            width: 100px;
+            text: "Summit";
+            clicked => { root.summit(b_config.text, a_config.text) }
+            }
+          }
+        }
+      Row {
+        HorizontalBox {
+          VerticalBox {
+            width: 100px;
+            Text {
+              width: parent.width;
+              text: "Lines";
+              horizontal-alignment: center;
+              font-size: 24px;
+              font-weight: 900;
+              color: white;
+              }
+            res_line := ListView {
+              for data in root.lines :
+              Rectangle {
+                height: 30px;
+                width: parent.width;
+                Button {
+                  width: parent.width / 2;
+                  text: data;
+                  clicked => {select(data)}
+                  }
+                }
+              }
+            }
+          VerticalBox {
+            Text {
+              width: 300px;
+              text: "Result";
+              font-size: 24px;
+              font-weight: 900;
+              color: white;
+              Button {
+                width: 100px;
+                text: "Refresh";
+                clicked => {refresh()}
+                }
+              }
+            res_check := TextEdit {
+              enabled: false;
+              font-size: 16px;
+              width: 1235px;
+              height: 250px;
+              text: root.res;
+              }
+            }
+          }
+        }
+      Row {
+        HorizontalBox {
+          width: 1335px;
+          Text {
+            width: 1230px;
+            text: "Total number of lines : ";
+            horizontal-alignment: right;
+            font-size: 24px;
+            font-weight: 900;
+            color: white;
+            }
+          total_lines := Text {
+            width: 100px;
+            text: root.t_lines;
+            horizontal-alignment: center;
+            font-size: 24px;
+            font-weight: 500;
+            color: #d22626;
+            }
+          }
+        }
+      }
+    }
+  }
