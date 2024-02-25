@@ -1,1 +1,0 @@
-/Users/kuzan04/Documents/Rustlang/checktext/target/release/checktext: /Users/kuzan04/Documents/Rustlang/checktext/build.rs /Users/kuzan04/Documents/Rustlang/checktext/src/main.rs /Users/kuzan04/Documents/Rustlang/checktext/target/release/build/checktext-315fcd451c8922eb/out/appwindow.rs /Users/kuzan04/Documents/Rustlang/checktext/ui/appwindow.slint
