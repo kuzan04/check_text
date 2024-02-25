@@ -1,6 +1,6 @@
 [package]
 name = "checktext"
-version = "0.1.0"
+version = "1.1.0"
 authors = ["kuzan04 <kittiphum1230@hotmail.co.th>"]
 edition = "2021"
 build = "build.rs"
@@ -12,3 +12,10 @@ slint = "1.4"
 
 [build-dependencies]
 slint-build = "1.4"
+winres = "0.1"
+
+# [package.metadata.build-package]
+# #For Linux
+# cargo-icon = { path = "./check-1292819_640.png" }
+# #For Mac silison
+# # cargo-icon = { path = "./" }
