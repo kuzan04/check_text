@@ -1,13 +1,6 @@
-use slint::{ComponentHandle, VecModel, Model};
+use slint::{ComponentHandle, Model, VecModel};
 
 slint::include_modules!();
-
-#[allow(dead_code)]
-#[derive(Clone, Default)]
-struct Config  {
-    index: String,
-    content: String,
-}
 
 fn main() -> Result<(), slint::PlatformError> {
 
@@ -23,24 +16,25 @@ fn main() -> Result<(), slint::PlatformError> {
                 match b_config.contains(&a_config) {
                     true => ui.set_res("True".into()),
                     false => {
-                        let mut res: Vec<Config> = Default::default(); 
+                        let mut res_content: Vec<String> = vec![];
+                        let mut res_lines: Vec<Lines> = Default::default(); 
+                        let mut count: usize = 0;
                         let b: Vec<String> = b_config.clone().lines().map(|s| s.to_string()).collect();
                         let a: Vec<String> = a_config.clone().lines().map(|s| s.to_string()).collect();
                         for (i,j) in a.iter().enumerate() {
                             if !b.contains(j) {
-                                res.push(Config { index: (i+1).to_string(), content: j.to_string() });
+                                res_content.push(j.to_string());
+                                count += 1;
+                                res_lines.push(Lines { index: count.to_string().into(), number: (i+1).to_string().into() });
                             }
                         }
-                        let lines: Vec<String> = res.iter().map(|d| d.index.to_owned()).collect();
-                        let lines: Vec<slint::SharedString> = lines.into_iter().map(Into::into).collect();
-                        let model_lines = slint::ModelRc::new(VecModel::from(lines));
-                        let backup: Vec<String> = res.iter().map(|d| d.content.to_owned()).collect();
-                        let backup: Vec<slint::SharedString> = backup.into_iter().map(Into::into).collect();
+                        let model_lines = slint::ModelRc::new(VecModel::from(res_lines.clone()));
+                        let backup: Vec<slint::SharedString> = res_content.clone().into_iter().map(Into::into).collect();
                         let model_backup = slint::ModelRc::new(VecModel::from(backup));
-                        ui.set_res(res.iter().map(|d| d.content.to_owned()).collect::<Vec<String>>().join("\n").into());
+                        ui.set_res(res_content.join("\n").into());
                         ui.set_res_backup(model_backup);
                         ui.set_lines(model_lines);
-                        ui.set_t_lines(res.len().try_into().unwrap());
+                        ui.set_t_lines(res_lines.len().try_into().unwrap());
                     }
                 }
             } else {

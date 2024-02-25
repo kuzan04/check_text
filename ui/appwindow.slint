@@ -19,11 +19,16 @@ component Button inherits Rectangle {
   touch := TouchArea { }
   }
 
+export struct Lines {
+  index: string,
+  number: string,
+  }
+
 export component AppWindow inherits Window {
 
   in-out property <string> res: "Please summit...";
   in-out property <[string]> res_backup: [];
-  in-out property <[string]> lines: [];
+  in-out property <[Lines]> lines: [];
   in property <int> t_lines: 0;
   callback summit(string, string);
   callback select(string);
@@ -120,8 +125,8 @@ export component AppWindow inherits Window {
                 width: parent.width;
                 Button {
                   width: parent.width / 2;
-                  text: data;
-                  clicked => {select(data)}
+                  text: data.number;
+                  clicked => {select(data.index)}
                   }
                 }
               }
