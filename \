@@ -1,0 +1,124 @@
+use slint::{
+    Color, ComponentHandle, Model, ModelRc, VecModel
+};
+
+
+slint::include_modules!();
+
+fn vec_str(x: f32, c: String, cl: Color) -> ModelRc<Content> {
+    let set: Vec<Content> = vec![Content { x, content: c.into(), color: cl }];
+    ModelRc::new(VecModel::from(set))
+}
+
+fn main() -> Result<(), slint::PlatformError> {
+
+    let ui = AppWindow::new()?;
+
+    ui.on_summit({
+        let ui_handle = ui.as_weak();
+        move |b, a| {
+            let ui = ui_handle.unwrap();
+            let b_config: String = b.parse().unwrap();
+            let a_config: String = a.parse().unwrap();
+            if !b_config.is_empty() && !a_config.is_empty() {
+                match b_config.contains(&a_config) {
+                    true => {
+                        let res = vec_str(0.0, "True".to_string(), Color::from_rgb_u8(0, 255, 0));
+                        ui.set_res(res);
+                    },
+                    false => {
+                        let mut res: Vec<ModelRc<Content>> = vec![];
+                        let mut res_content: Vec<Content> = vec![];
+                        let mut res_lines: Vec<Lines> = vec![]; 
+                        let mut count: usize = 0;
+                        let mut x: f32 = 50.0;
+                        let b: Vec<String> = b_config.clone().lines().map(|s| s.to_string()).collect();
+                        let a: Vec<String> = a_config.clone().lines().map(|s| s.to_string()).collect();
+                        for (i,j) in a.iter().enumerate() {
+                            if !b.contains(j) {
+                                let mut it_b = b.iter();
+                                let mut it_a = a.iter();
+                                loop {
+                                    match (it_b.next(), it_a.next()) {
+                                        (Some(b), Some(a)) => {
+                                            if b.contains('#') && a.contains('#'){
+                                                let b_split: Vec<String> = b.split('#').map(String::from).collect();
+                                                let a_split: Vec<String> = a.split('#').map(String::from).collect();
+                                            }
+                                        },
+                                        (Some(_), None) => {
+                                            todo!();
+                                        },
+                                        (None, Some(_)) =>{
+                                            todo!();
+                                        },
+                                        (None, None) => break,
+                                    }
+                                }
+                                res_content.push(Content { x: 50.0, content: j.to_string().into(), color: Color::from_rgb_u8(255, 255, 255) });
+                                count += 1;
+                                res_lines.push(Lines { index: count.to_string().into(), number: (i+1).to_string().into() });
+                            }
+                        }
+                        let model_lines = ModelRc::new(VecModel::from(res_lines.clone()));
+                        let model_content = ModelRc::new(VecModel::from(res_content));
+                        let content_all = vec![model_content.clone()];
+                        let content_all = ModelRc::new(VecModel::from(content_all));
+                        ui.set_res(model_content.clone());
+                        ui.set_res_main(content_all);
+                        ui.set_res_backup(model_content);
+                        ui.set_lines(model_lines);
+                        ui.set_t_lines(res_lines.len().try_into().unwrap());
+                    }
+                }
+            } else {
+                let res = vec_str(0.0, "Please add text in input Before and After Thank!".to_string(), Color::from_rgb_u8(255,255,0));
+                let content = vec![res.clone()];
+                let model_content = ModelRc::new(VecModel::from(content));
+                ui.set_res(res);
+                ui.set_res_main(model_content);
+                ui.set_res_backup([].into());
+                ui.set_lines([].into());
+                ui.set_t_lines(0);
+            }
+        }
+    });
+
+    // // ui.on_select({
+    // //     let ui_handle = ui.as_weak();
+    // //     move |s| {
+    // //         let ui = ui_handle.unwrap();
+    // //         let select: usize = s.parse().unwrap();
+    // //         let res: Vec<String> = ui.get_res().iter().map(|s| s.to_string()).collect();
+    // //         let backup: Vec<String> = ui.get_res_backup().iter().map(|s| s.to_string()).collect();
+    // //         match !res.is_empty() && !backup.is_empty() {
+    // //             true => {
+    // //                 let select = vec_str(vec![backup[select-1].to_owned()]);
+    // //                 ui.set_res(select)
+    // //             },
+    // //             false => ui.set_res(vec_str(vec!["Not found!".to_string()]))
+    // //         }
+    // //     }
+    // // });
+    //
+    // ui.on_refresh({
+    //     let ui_handle = ui.as_weak();
+    //     move || {
+    //         let ui = ui_handle.unwrap();
+    //         let backup: Vec<Content> = ui.get_res_backup().iter().collect();
+    //         match !backup.is_empty() {
+    //             true => ui.set_res(ui.get_res_backup()),
+    //             false => {
+    //                 let mut vec: Vec<Content> = vec![];
+    //                 for i in 0..10 {
+    //                     vec.push(Content { content: format!("Please summit!! {}", (i+1)).to_string().into(), color: Color::from_rgb_u8(255, 255, 0) });
+    //                 }
+    //                 let vec = ModelRc::new(VecModel::from(vec));
+    //                 ui.set_res(vec)
+    //             },
+    //         }
+    //     }
+    // });
+
+    ui.run()
+}

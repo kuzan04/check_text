@@ -1,4 +1,4 @@
-import { Button, VerticalBox, HorizontalBox, TextEdit, ListView } from "std-widgets.slint";
+import { Button, VerticalBox, HorizontalBox, TextEdit, ListView, LineEdit } from "std-widgets.slint";
 
 component Button inherits Rectangle {
   in-out property text <=> txt.text;
@@ -24,17 +24,27 @@ export struct Lines {
   number: string,
   }
 
+export struct Content {
+  content: string,
+  color: color,
+  } 
+
 export component AppWindow inherits Window {
 
-  in-out property <string> res: "Please summit...";
-  in-out property <[string]> res_backup: [];
+  in-out property <[Content]> res_b: [{ x: 0px, content: "Please summit...", color: #eeeeee }];
+  in-out property <[Content]> res_a: [];
+  in-out property <[Content]> res_backup_b: [];
+  in-out property <[Content]> res_backup_a: [];
   in-out property <[Lines]> lines: [];
-  in property <int> t_lines: 0;
+  in-out property <int> t_lines: 0;
   callback summit(string, string);
   callback select(string);
   callback refresh();
 
   title: "Check Config";
+  background: #302c2c;
+  width: 1410px;
+  height: 850px;
   GridLayout {
     padding: 10px;
     spacing: 5px;
@@ -72,10 +82,12 @@ export component AppWindow inherits Window {
             clicked => { 
               b_config.text = "";
               a_config.text = "";
-              res_check.text = "Please summit...";
+              root.res_b = [{ x: 0px, content: "Please summit...", color: #eeeeee }];
+              root.res_a = [];
               root.lines = [];
-              root.res_backup = [];
-              total_lines.text = 0;
+              root.res_backup_b = [];
+              root.res_backup_a = [];
+              root.t_lines = 0;
               } 
             }
           }
@@ -109,7 +121,7 @@ export component AppWindow inherits Window {
       Row {
         HorizontalBox {
           VerticalBox {
-            width: 100px;
+            width: 120px;
             Text {
               width: parent.width;
               text: "Lines";
@@ -126,30 +138,67 @@ export component AppWindow inherits Window {
                 Button {
                   width: parent.width / 2;
                   text: data.number;
-                  clicked => {select(data.index)}
+                  clicked => { select(data.index) }
                   }
                 }
               }
             }
           VerticalBox {
             Text {
-              width: 300px;
-              text: "Result";
+              width: 430px;
+              text: "Result before";
               font-size: 24px;
               font-weight: 900;
               color: white;
               Button {
+                y: 1px;
                 width: 100px;
                 text: "Refresh";
                 clicked => {refresh()}
                 }
               }
-            res_check := TextEdit {
-              enabled: false;
-              font-size: 16px;
-              width: 1235px;
+            res_check_b := ListView {
+              width: 550px;
               height: 250px;
-              text: root.res;
+              for data in root.res_b :
+              Rectangle {
+                width: parent.width;
+                height: 30px;
+                TextInput {
+                  read-only: true;
+                  y:0;
+                  horizontal-alignment: left;
+                  font-size: 16px;
+                  text: data.content;    
+                  color: data.color;
+                  }
+                }
+              }
+            }
+          VerticalBox {
+            Text {
+              width: 400px;
+              text: "Result after";
+              font-size: 24px;
+              font-weight: 900;
+              color: white;
+              }
+            res_check_a := ListView {
+              width: 625px;
+              height: 250px;
+              for data in root.res_a :
+              Rectangle {
+                width: parent.width;
+                height: 30px;
+                TextInput {
+                  read-only: true;
+                  y:0;
+                  horizontal-alignment: left;
+                  font-size: 16px;
+                  text: data.content;    
+                  color: data.color;
+                  }
+                }
               }
             }
           }

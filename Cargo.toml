@@ -13,9 +13,3 @@ slint = "1.4"
 [build-dependencies]
 slint-build = "1.4"
 winres = "0.1"
-
-# [package.metadata.build-package]
-# #For Linux
-# cargo-icon = { path = "./check-1292819_640.png" }
-# #For Mac silison
-# # cargo-icon = { path = "./" }
